@@ -39,7 +39,6 @@ public class CreateNewAssessment {
         score.setDefaultValue(defaultValue);
         assessmentTest.getOutcomeDeclarations().add(score);
 
-
         /* Declare test part variable */
         final TestPart testPart = new TestPart(assessmentTest);
         testPart.setIdentifier(Identifier.assumedLegal("p"));

@@ -1,11 +1,7 @@
 package videotel.voa.qtiworks;
 
-import uk.ac.ed.ph.jqtiplus.internal.util.ObjectUtilities;
-import uk.ac.ed.ph.jqtiplus.state.ItemSessionState;
-import uk.ac.ed.ph.jqtiplus.state.TestPlanNode;
 import videotel.voa.qtiworks.tests.AssessmentTestWrapper;
-
-import javax.sound.midi.SysexMessage;
+import uk.ac.ed.ph.jqtiplus.internal.util.ObjectUtilities;
 import java.util.Date;
 
 public class RunAssessmentTests {
@@ -13,7 +9,7 @@ public class RunAssessmentTests {
 
     public static void main(String[] args) {
         runNonLinearIndividual();
-        runNonLinearIndividual();
+        //runLinearSimultaneous();
     }
 
 
