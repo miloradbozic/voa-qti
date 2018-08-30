@@ -46,6 +46,9 @@ public class RunAssessmentTests {
         //score test
         String testScore = test.getScore();
         System.out.println("Test score: " + testScore);
+
+        test.getItem(1);
+        test.getItem(2);
     }
 
 }
