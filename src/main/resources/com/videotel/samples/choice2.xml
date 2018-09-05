@@ -6,7 +6,7 @@
 				identifier="choice" title="Unattended Luggage" adaptive="false" timeDependent="false">
 	<responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
 		<correctResponse>
-			<value>ChoiceB</value>
+			<value>ChoiceA</value>
 		</correctResponse>
 	</responseDeclaration>
 	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float">
@@ -20,10 +20,10 @@
 			<img src="images/sign.png" alt="NEVER LEAVE LUGGAGE UNATTENDED"/>
 		</p>
 		<choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1">
-			<prompt>When was John F. Kennedy assassinated?</prompt>
-			<simpleChoice identifier="ChoiceA">September 12, 1964</simpleChoice>
-			<simpleChoice identifier="ChoiceB">November 22, 1963</simpleChoice>
-			<simpleChoice identifier="ChoiceC">October 13, 1961</simpleChoice>
+			<prompt>Who created first airplane?</prompt>
+			<simpleChoice identifier="ChoiceA">Wright brothers</simpleChoice>
+			<simpleChoice identifier="ChoiceB">Wilson brothers</simpleChoice>
+			<simpleChoice identifier="ChoiceC">Gyllenhaal brothers</simpleChoice>
 		</choiceInteraction>
 	</itemBody>
 	<responseProcessing

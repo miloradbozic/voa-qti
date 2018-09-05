@@ -1,6 +1,6 @@
 package videotel.voa.qtiworks;
 
-import videotel.voa.qtiworks.tests.AssessmentTestWrapper;
+import videotel.voa.qtiworks.helpers.AssessmentTestWrapper;
 import uk.ac.ed.ph.jqtiplus.internal.util.ObjectUtilities;
 import java.util.Date;
 
@@ -26,10 +26,13 @@ public class RunAssessmentTests {
         test.testSessionController.enterNextAvailableTestPart(testPartEntryTimestamp);
         /* Answer item 1 correctly */
         test.selectItem(1);
-        test.handleChoiceResponse(operationTimestamp, "ChoiceA");
+        test.handleChoiceResponse(operationTimestamp, "ChoiceB");
         /* Answer item 2 incorrectly */
         test.selectItem(2);
         test.handleChoiceResponse(operationTimestamp, "ChoiceB");
+        /* Answer item 2 correctly */
+        test.selectItem(3);
+        test.handleChoiceResponse(operationTimestamp, "ChoiceA");
 
         //get score item1
         String scoreItem1 = test.getItemScore(1); //i1
@@ -39,6 +42,10 @@ public class RunAssessmentTests {
         String scoreItem2 = test.getItemScore(2); //i2
         System.out.println("Second item score: " + scoreItem2);
 
+        //score item2
+        String scoreItem3 = test.getItemScore(3); //i3
+        System.out.println("Third item score: " + scoreItem3);
+
         //check if test scoring is performed
         boolean processed = test.isOutcomeProcessed();
         System.out.println("Test processed: " + processed);
@@ -47,8 +54,8 @@ public class RunAssessmentTests {
         String testScore = test.getScore();
         System.out.println("Test score: " + testScore);
 
-        test.getItem(1);
-        test.getItem(2);
+        test.getItemPathByIdentifier(1);
+        test.getItemPathByIdentifier(2);
     }
 
 }

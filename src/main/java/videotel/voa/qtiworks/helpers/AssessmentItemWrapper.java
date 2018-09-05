@@ -1,4 +1,4 @@
-package videotel.voa.qtiworks.tests;
+package videotel.voa.qtiworks.helpers;
 
 import uk.ac.ed.ph.jqtiplus.SimpleJqtiFacade;
 import uk.ac.ed.ph.jqtiplus.group.NodeGroup;
@@ -23,6 +23,7 @@ import uk.ac.ed.ph.jqtiplus.types.StringResponseData;
 import uk.ac.ed.ph.jqtiplus.xmlutils.locators.ClassPathResourceLocator;
 import uk.ac.ed.ph.jqtiplus.xmlutils.locators.ResourceLocator;
 import videotel.voa.qtiworks.helpers.TestHelper;
+import videotel.voa.qtiworks.helpers.interactions.SimpleChoiceRenderer;
 
 import java.net.URI;
 import java.util.*;
@@ -41,30 +42,30 @@ public class AssessmentItemWrapper {
     public void initItemSessionController() {
         final ResourceLocator inputResourceLocator = new ClassPathResourceLocator();
         final URI inputUri = URI.create("classpath:/" + this.filePath);
-        
+
         final SimpleJqtiFacade simpleJqtiFacade = new SimpleJqtiFacade();
         final ResolvedAssessmentItem resolvedAssessmentItem = simpleJqtiFacade.loadAndResolveAssessmentItem(inputResourceLocator, inputUri);
 
         System.out.println(resolvedAssessmentItem);
         this.itemProcessingMap = new ItemProcessingInitializer(resolvedAssessmentItem, false).initialize();
-        System.out.println("Run map is: " + ObjectDumper.dumpObject(this.itemProcessingMap, DumpMode.DEEP));
+        //System.out.println("Run map is: " + ObjectDumper.dumpObject(this.itemProcessingMap, DumpMode.DEEP));
         this.itemSessionState = new ItemSessionState();
 
         final ItemSessionControllerSettings itemSessionControllerSettings = new ItemSessionControllerSettings();
         this.itemSessionController = simpleJqtiFacade.createItemSessionController(itemSessionControllerSettings, this.itemProcessingMap, this.itemSessionState);
-        
+
         final Date timestamp1 = new Date();
         this.itemSessionController.initialize(timestamp1);
         this.itemSessionController.performTemplateProcessing(timestamp1);
-        System.out.println("State after init: " + ObjectDumper.dumpObject(this.itemSessionState, DumpMode.DEEP));
+        //System.out.println("State after init: " + ObjectDumper.dumpObject(this.itemSessionState, DumpMode.DEEP));
 
         this.itemSessionController.enterItem(new Date());
 
 
 
-        System.out.println("State after entry: " + ObjectDumper.dumpObject(this.itemSessionState, DumpMode.DEEP));
+        //System.out.println("State after entry: " + ObjectDumper.dumpObject(this.itemSessionState, DumpMode.DEEP));
     }
-    
+
     public void bindAndCommitResponses(String responseChoice) {
         final Map<Identifier, ResponseData> responseMap = new HashMap<Identifier, ResponseData>();
         responseMap.put(Identifier.parseString("RESPONSE"), new StringResponseData(responseChoice));
@@ -88,23 +89,22 @@ public class AssessmentItemWrapper {
      * we need to create it for each interaction type
      * **/
     public void renderItem() {
+        SimpleChoiceRenderer renderer = new SimpleChoiceRenderer();
         List<Interaction> interactions = this.itemProcessingMap.getInteractions();
         TextRun tr2= (TextRun) interactions.get(0).getNodeGroups().get(0).getChildren().get(0).getNodeGroups().get(0).getChildren().get(0);
         String question = tr2.getTextContent();
-        System.out.println("Question is : " + tr2.getTextContent());
+        renderer.setQuestion(question);
 
-        System.out.println("Choices: ");
         List<String> choices = new ArrayList<>();
         List<SimpleChoice> children = (List<SimpleChoice>)interactions.get(0).getNodeGroups().get(1).getChildren();
 
         for (SimpleChoice child : children) {
             TextRun tr = (TextRun)child.getNodeGroups().get(0).getChildren().get(0);
-            String option = tr.getTextContent();
-            System.out.println("\t" + option);
+            String choice = tr.getTextContent();
+            renderer.addChoice(choice);
         }
 
-
-
+        renderer.render();
     }
 
 }

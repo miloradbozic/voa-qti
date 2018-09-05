@@ -1,4 +1,4 @@
-package videotel.voa.qtiworks.tests;
+package videotel.voa.qtiworks.helpers;
 
 import uk.ac.ed.ph.jqtiplus.internal.util.ObjectUtilities;
 import uk.ac.ed.ph.jqtiplus.node.test.AssessmentItemRef;
@@ -96,11 +96,17 @@ public class AssessmentTestWrapper {
     }
 
     /*** functions important for rendering ***/
-    public void getItem(int identifier) {
+    public String getItemPathByIdentifier(int identifier) {
         int id = identifier - 1;
         TestPlanNode itemRefNode = this.getItemRefNode(id);
         AssessmentItemRef assessmentItemRef = (AssessmentItemRef) this.testProcessingMap.resolveAbstractPart(itemRefNode);
-        System.out.println(assessmentItemRef.getHref());
+        return assessmentItemRef.getHref().toString();
+    }
+
+    public AssessmentItemWrapper getItemByIdentifier(int identifier) {
+        String path = this.getItemPathByIdentifier(identifier);
+        AssessmentItemWrapper itemWrapper = new AssessmentItemWrapper("com/videotel/samples/" + path);
+        return itemWrapper;
     }
 
     /** Private methods ***/

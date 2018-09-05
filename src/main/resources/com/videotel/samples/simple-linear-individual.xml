@@ -16,7 +16,7 @@
       <value baseType="float">0.0</value>
     </defaultValue>
   </outcomeDeclaration>
-  <testPart identifier="p" navigationMode="nonlinear" submissionMode="individual">
+  <testPart identifier="p" navigationMode="linear" submissionMode="individual">
     <assessmentSection identifier="s" title="Section" visible="true">
       <assessmentItemRef identifier="i1" href="choice.xml"/>
       <assessmentItemRef identifier="i2" href="choice2.xml"/>
