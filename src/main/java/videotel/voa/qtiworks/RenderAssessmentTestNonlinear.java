@@ -1,7 +1,6 @@
 package videotel.voa.qtiworks;
 
 
-import videotel.voa.qtiworks.helpers.AssessmentItemWrapper;
 import videotel.voa.qtiworks.helpers.AssessmentTestWrapper;
 
 public class RenderAssessmentTestNonlinear {
@@ -11,14 +10,15 @@ public class RenderAssessmentTestNonlinear {
         AssessmentTestWrapper test = new AssessmentTestWrapper("com/videotel/samples/simple-nonlinear-individual.xml");
 
         System.out.println("Entering the test");
+        test.enterTest();
 
         System.out.println("Rendering the first question");
-        test.getItemByIdentifier(1).renderItem();
+        test.getItem(1).renderItem();
 
         System.out.println("Rendering the second question");
-        test.getItemByIdentifier(2).renderItem();
+        test.getItem(2).renderItem();
 
         System.out.println("Rendering the third question");
-        test.getItemByIdentifier(3).renderItem();
+        test.getItem(3).renderItem();
     }
 }

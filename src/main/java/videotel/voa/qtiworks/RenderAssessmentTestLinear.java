@@ -3,6 +3,7 @@ package videotel.voa.qtiworks;
 
 import uk.ac.ed.ph.jqtiplus.internal.util.ObjectUtilities;
 import uk.ac.ed.ph.jqtiplus.state.TestPlanNode;
+import uk.ac.ed.ph.jqtiplus.state.TestPlanNodeKey;
 import videotel.voa.qtiworks.helpers.AssessmentTestWrapper;
 
 import java.util.Date;
@@ -17,24 +18,24 @@ public class RenderAssessmentTestLinear {
         AssessmentTestWrapper test = new AssessmentTestWrapper("com/videotel/samples/simple-linear-individual.xml");
 
         System.out.println("Entering the test");
-        test.testSessionController.enterTest(testEntryTimestamp);
-        test.testSessionController.enterNextAvailableTestPart(testPartEntryTimestamp);
-        TestPlanNode currentTestPlanNode = test.testSessionController.advanceItemLinear(operationTimestamp);
+        test.enterTest();
 
-        String path = currentTestPlanNode.getItemSystemId().toString();
-        System.out.println(path);
+        System.out.println("Rendering the first item:");
+        test.getCurrentItem().renderItem();
+        System.out.println("-------------------");
 
-        currentTestPlanNode = test.testSessionController.advanceItemLinear(operationTimestamp);
-        path = currentTestPlanNode.getItemSystemId().toString();
-        System.out.println(path);
+        System.out.println("\nMoving to the next item...");
+        test.testSessionController.advanceItemLinear(operationTimestamp);
 
-//        System.out.println("Rendering the first question");
-//        test.getItemByIdentifier(1).renderItem();
-//
-//        System.out.println("Rendering the second question");
-//        test.getItemByIdentifier(2).renderItem();
-//
-//        System.out.println("Rendering the third question");
-//        test.getItemByIdentifier(3).renderItem();
+        System.out.println("\r\nRendering the next item:");
+        test.getCurrentItem().renderItem();
+        System.out.println("-------------------");
+
+        System.out.println("\nMoving to the next item...");
+        test.testSessionController.advanceItemLinear(operationTimestamp);
+
+        System.out.println("\r\nRendering the next item:");
+        test.getCurrentItem().renderItem();
+
     }
 }

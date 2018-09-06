@@ -12,7 +12,7 @@ import videotel.voa.qtiworks.helpers.AssessmentItemWrapper;
 public class RunAssessmentItem {
 
     public static void main(final String[] args) {
-        AssessmentItemWrapper itemWrapper = new AssessmentItemWrapper("com/videotel/samples/choice.xml");
+        AssessmentItemWrapper itemWrapper = new AssessmentItemWrapper("classpath:/com/videotel/samples/choice.xml");
         itemWrapper.bindAndCommitResponses("ChoiceA");
         itemWrapper.processResponseAndCloseItem();
         System.out.println(ObjectDumper.dumpObject(itemWrapper.getState(), DumpMode.DEEP));

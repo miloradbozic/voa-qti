@@ -29,12 +29,10 @@ public class AssessmentTestWrapper {
     public static final Identifier TEST_OP_DONE = Identifier.assumedLegal("OP_DONE");
 
     public TestSessionController testSessionController;
-    protected TestSessionState testSessionState;
+    public TestSessionState testSessionState;       //@todo refactor
     protected TestPlan testPlan;
     protected TestProcessingMap testProcessingMap;
-    protected Long testPartEntryDelta = 1000L;
-    protected Map<String, TestPlanNode> testPlanNodesByIdentifierStringMap;
-    String filePath = null;
+    String filePath;
     protected String getTestFilePath() {
         return this.filePath;
     }
@@ -58,6 +56,11 @@ public class AssessmentTestWrapper {
 //            final TestPlanNode testPlanNode = TestHelper.getSingleTestPlanNode(testPlan, testNodeIdentifierString);
 //            testPlanNodesByIdentifierStringMap.put(testNodeIdentifierString, testPlanNode);
 //        }
+    }
+
+    public void enterTest() {
+        testSessionController.enterTest(new Date());
+        testSessionController.enterNextAvailableTestPart(new Date());
     }
 
     public void handleChoiceResponse(final Date timestamp, final String choiceIdentifier) {
@@ -103,10 +106,18 @@ public class AssessmentTestWrapper {
         return assessmentItemRef.getHref().toString();
     }
 
-    public AssessmentItemWrapper getItemByIdentifier(int identifier) {
+    /* Returns the current item of the test */
+    public AssessmentItemWrapper getCurrentItem() {
+        TestPlanNodeKey currentItemKey = this.testSessionState.getCurrentItemKey();
+        TestPlanNode currentTestPlanNode = this.testSessionState.getTestPlan().getNode(currentItemKey);
+        String path = currentTestPlanNode.getItemSystemId().toString();
+        return new AssessmentItemWrapper(path);
+    }
+
+    /* Returns the item with the given identifier */
+    public AssessmentItemWrapper getItem(int identifier) {
         String path = this.getItemPathByIdentifier(identifier);
-        AssessmentItemWrapper itemWrapper = new AssessmentItemWrapper("com/videotel/samples/" + path);
-        return itemWrapper;
+        return new AssessmentItemWrapper("classpath:/com/videotel/samples/" + path);
     }
 
     /** Private methods ***/

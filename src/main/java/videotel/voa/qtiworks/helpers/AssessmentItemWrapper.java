@@ -28,6 +28,7 @@ import videotel.voa.qtiworks.helpers.interactions.SimpleChoiceRenderer;
 import java.net.URI;
 import java.util.*;
 
+/* @todo: maybe create factory with base url in order to avoid adding classpath://base+filename everywhere */
 public class AssessmentItemWrapper {
     public ItemSessionController itemSessionController;
     protected ItemSessionState itemSessionState;
@@ -41,12 +42,12 @@ public class AssessmentItemWrapper {
 
     public void initItemSessionController() {
         final ResourceLocator inputResourceLocator = new ClassPathResourceLocator();
-        final URI inputUri = URI.create("classpath:/" + this.filePath);
+        final URI inputUri = URI.create(this.filePath);
 
         final SimpleJqtiFacade simpleJqtiFacade = new SimpleJqtiFacade();
         final ResolvedAssessmentItem resolvedAssessmentItem = simpleJqtiFacade.loadAndResolveAssessmentItem(inputResourceLocator, inputUri);
 
-        System.out.println(resolvedAssessmentItem);
+        //System.out.println(resolvedAssessmentItem);
         this.itemProcessingMap = new ItemProcessingInitializer(resolvedAssessmentItem, false).initialize();
         //System.out.println("Run map is: " + ObjectDumper.dumpObject(this.itemProcessingMap, DumpMode.DEEP));
         this.itemSessionState = new ItemSessionState();
